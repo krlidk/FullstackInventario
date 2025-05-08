@@ -23,16 +23,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class Almacen {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int almacen_id;
 
     @Column (nullable = false)
-    private String almacen_nombre;
+    private String almacennombre;
 
     @Column (nullable = false)
-    private String almacen_direccion;
+    private String direccion;
 
     @ManyToMany
     @JoinTable(
