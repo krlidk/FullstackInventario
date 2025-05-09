@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class AlmacenService {
     @Autowired
     private AlmacenRepository almacenRepository;

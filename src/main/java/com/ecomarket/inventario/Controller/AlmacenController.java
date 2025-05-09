@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
-@RequestMapping("/api/v1/almacen")
+@RequestMapping("/api/v1/almacen") //http://localhost:8080/api/v1/almacen
 
 public class AlmacenController {
     @Autowired

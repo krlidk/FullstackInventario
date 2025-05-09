@@ -2,6 +2,8 @@ package com.ecomarket.inventario.Model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer producto_id;
+    private Integer idProducto;
 
     @Column(nullable = false)
     private String productoNombre;
@@ -36,6 +38,7 @@ public class Producto {
     //private String categoria;
 
     @ManyToMany(mappedBy = "productos")
+    @JsonIgnore
     private List<Almacen> almacenes;
 
 }
