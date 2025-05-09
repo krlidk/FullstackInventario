@@ -19,22 +19,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Producto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int producto_id;
+    private Integer producto_id;
 
     @Column(nullable = false)
-    private String producto_nombre;
+    private String productoNombre;
 
     @Column(nullable = false)
-    private int stock;
+    private Integer stock;
 
-    @Column(nullable = false)
-    private double precio;
+    //@Column(nullable = false)
+    //private double precio;
 
-    @Column(nullable = false)
-    private String categoria;
+    //@Column(nullable = false)
+    //private String categoria;
 
     @ManyToMany(mappedBy = "productos")
     private List<Almacen> almacenes;

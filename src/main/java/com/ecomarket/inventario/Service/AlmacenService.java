@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.ecomarket.inventario.Model.Almacen;
 import com.ecomarket.inventario.Repository.AlmacenRepository;
+
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 @Service
@@ -19,4 +22,26 @@ public class AlmacenService {
     public List<Almacen> obtenerAlmacenes() {
         return almacenRepository.findAll(); //da la lista de todos los almacenes
     }
+
+    public Almacen buscarPorId(Integer idAlmacen){
+        return almacenRepository.findByIdAlmacen(idAlmacen); //busca el almacen por id
+    }
+
+    @Transactional
+    public void eliminarAlmacen(Integer idAlmacen) {
+        almacenRepository.deleteByIdAlmacen(idAlmacen); 
+    } //elimina el almacen por id
+
+    public List<Almacen> buscarPorNombre(String almacennombre) {
+        return almacenRepository.findByalmacennombre(almacennombre); //busca el almacen por nombre
+    }
+
+    public List<Almacen> buscarPorDireccion(String direccion) {
+        return almacenRepository.findByDireccion(direccion); //busca el almacen por direccion
+    }
+
+    public Almacen actualizarAlmacen(Almacen almacen) {
+        return almacenRepository.save(almacen); //actualiza el almacen
+    }
+
 }

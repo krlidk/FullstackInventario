@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class Almacen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int almacen_id;
+    private Integer idAlmacen; 
 
     @Column (nullable = false)
     private String almacennombre;
