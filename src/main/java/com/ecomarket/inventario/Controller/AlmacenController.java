@@ -32,6 +32,7 @@ public ResponseEntity<List<String>> listarMetodosDisponibles() {
         "GET /api/v1/almacen/buscarPorNombre - Buscar almacenes por nombre",
         "GET /api/v1/almacen/buscarPorDireccion - Buscar almacenes por dirección",
         "POST /api/v1/almacen/agregarAlmacen - Agregar un nuevo almacén",
+        "POST /api/v1/almacen/producto/agregarProducto - Agregar un producto a un almacén",
         "PUT /api/v1/almacen/actualizarAlmacen - Actualizar un almacén existente",
         "DELETE /api/v1/almacen/eliminarAlmacen - Eliminar un almacén por ID"
     );

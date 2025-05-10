@@ -24,8 +24,17 @@ public class AlmacenService {
         return almacenRepository.findAll(); //da la lista de todos los almacenes
     }
 
-    public Almacen buscarPorId(Integer idAlmacen){
-        return almacenRepository.findByIdAlmacen(idAlmacen); //busca el almacen por id
+    //public Almacen buscarPorId(Integer idAlmacen){
+    //    return almacenRepository.findByIdAlmacen(idAlmacen); //busca el almacen por id
+    //}
+
+    public Almacen buscarPorId(Integer idAlmacen) {
+        Almacen almacen = almacenRepository.findByIdAlmacen(idAlmacen); // Busca el almacén por ID
+        if (almacen != null) {
+            // Ordenar los productos por idProducto
+            almacen.getProductos().sort((p1, p2) -> p1.getIdProducto().compareTo(p2.getIdProducto()));
+        }
+        return almacen;
     }
 
     @Transactional

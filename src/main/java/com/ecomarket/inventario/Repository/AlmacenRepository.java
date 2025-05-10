@@ -1,6 +1,7 @@
 package com.ecomarket.inventario.Repository;
 
 import java.util.List;
+
 import com.ecomarket.inventario.Model.Almacen;
 
 import org.springframework.data.jpa.repository.JpaRepository;
