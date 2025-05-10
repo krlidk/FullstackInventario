@@ -24,9 +24,6 @@ public class AlmacenService {
         return almacenRepository.findAll(); //da la lista de todos los almacenes
     }
 
-    //public Almacen buscarPorId(Integer idAlmacen){
-    //    return almacenRepository.findByIdAlmacen(idAlmacen); //busca el almacen por id
-    //}
 
     public Almacen buscarPorId(Integer idAlmacen) {
         Almacen almacen = almacenRepository.findByIdAlmacen(idAlmacen); // Busca el almacén por ID

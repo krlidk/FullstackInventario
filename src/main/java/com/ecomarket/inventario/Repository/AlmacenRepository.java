@@ -7,7 +7,6 @@ import com.ecomarket.inventario.Model.Almacen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-
 public interface AlmacenRepository extends JpaRepository<Almacen, Integer> {
     
     Almacen findByIdAlmacen(Integer idAlmacen); // Encuentra un almacen por su ID
@@ -19,8 +18,4 @@ public interface AlmacenRepository extends JpaRepository<Almacen, Integer> {
 
     @Query("SELECT a FROM Almacen a WHERE LOWER(a.direccion) LIKE LOWER(CONCAT('%',:direccion,'%'))") 
     List<Almacen> findByDireccion(String direccion); // Encuentra almacenes por dirección
-
-    //@Query("INSERT blabla") metodo para agregar productos a un almacen 
-
-    
 }

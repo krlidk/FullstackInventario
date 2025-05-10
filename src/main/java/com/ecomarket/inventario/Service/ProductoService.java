@@ -1,16 +1,17 @@
 package com.ecomarket.inventario.Service;
 
-import java.util.List;
-
 import com.ecomarket.inventario.Model.Almacen;
 import com.ecomarket.inventario.Model.Producto;
 import com.ecomarket.inventario.Repository.AlmacenRepository;
 import com.ecomarket.inventario.Repository.ProductoRepository;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;

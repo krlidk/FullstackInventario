@@ -49,7 +49,6 @@ public ResponseEntity<List<String>> listarMetodosDisponibles() {
         return ResponseEntity.ok(listaAlmacenes);
     }
 
-
     @GetMapping ("/buscarPorId/{idAlmacen}")
     public ResponseEntity<Almacen> buscarPorId(@PathVariable Integer idAlmacen) {
         Almacen almacen = almacenService.buscarPorId(idAlmacen);
@@ -59,7 +58,6 @@ public ResponseEntity<List<String>> listarMetodosDisponibles() {
         }
         return ResponseEntity.ok(almacen);
     }
-
 
     @GetMapping ("/buscarPorNombre/{almacennombre}")
     public ResponseEntity<List<Almacen>> buscarPorNombre(@PathVariable String almacennombre) {

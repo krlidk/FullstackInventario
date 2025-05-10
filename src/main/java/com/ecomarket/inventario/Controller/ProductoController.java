@@ -24,5 +24,4 @@ public class ProductoController {
         Producto producto = productoService.agregarProducto(idAlmacen, nuevoProducto);
         return ResponseEntity.ok(producto);
     }
-
 }

@@ -31,14 +31,7 @@ public class Producto {
     @Column(nullable = false)
     private Integer stock;
 
-    //@Column(nullable = false)
-    //private double precio;
-
-    //@Column(nullable = false)
-    //private String categoria;
-
     @ManyToMany(mappedBy = "productos")
     @JsonIgnore
     private List<Almacen> almacenes;
-
 }
