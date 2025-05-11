@@ -35,6 +35,9 @@ public class ProductoService {
         }
     }
 
-
+    public String obtenerNombreProductoPorId(Integer idProducto) {
+        Producto producto = productoRepository.findById(idProducto).orElse(null);
+        return producto != null ? producto.getProductoNombre() : null; // Devuelve null si no se encuentra el producto
+    }
 
 }

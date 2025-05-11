@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomarket.inventario.Model.Almacen;
 import com.ecomarket.inventario.Service.AlmacenService;
+import com.ecomarket.inventario.Service.ProductoService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,14 +25,20 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/v1/almacen") //http://localhost:8080/api/v1/almacen
+@Tag(name = "Almacen", description = "Operaciones relacionadas con los almacenes")
 
 public class AlmacenController {
     @Autowired
     private AlmacenService almacenService;
 
+    @Autowired
+    private ProductoService productoService;
+
     @GetMapping
 public ResponseEntity<List<String>> listarMetodosDisponibles() {
     List<String> metodos = List.of(
+        "Swagger UI: http://localhost:8080/swagger-ui.html",
+        "JSON OpenAPI: http://localhost:8080/v3/api-docs",
         "GET /api/v1/almacen/obtenerAlmacenes - Obtener todos los almacenes",
         "GET /api/v1/almacen/buscarPorId - Buscar un almacén por ID",
         "GET /api/v1/almacen/buscarPorNombre - Buscar almacenes por nombre",
@@ -77,12 +89,40 @@ public ResponseEntity<List<String>> listarMetodosDisponibles() {
         return ResponseEntity.ok(listaAlmacenes);
     }
 
+    @Operation(
+    summary = "Agregar almacén",
+    description = "Agrega un nuevo almacén. Se requiere un objeto Almacen en el cuerpo de la solicitud"
+)
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Almacén agregado correctamente"),
+        @ApiResponse(responseCode = "404", description = "Almacén no encontrado"),
+        @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @PostMapping ("/agregarAlmacen") 
     public ResponseEntity<Almacen> guardarAlmacen(@RequestBody Almacen almacen) {
+        almacen.getProductos().forEach(producto -> {
+        if (producto.getIdProducto() != null) {
+            // Obtener el nombre del producto por su ID
+            String nombreProducto = productoService.obtenerNombreProductoPorId(producto.getIdProducto());
+            if (nombreProducto != null) {
+                producto.setProductoNombre(nombreProducto); // Completar el nombre automáticamente
+            }
+        }
+    });
+
         Almacen nuevoAlmacen = almacenService.guardarAlmacen(almacen);
         return ResponseEntity.ok(nuevoAlmacen);
     }
 
+    @Operation(
+    summary = "Actualizar almacén",
+    description = "Actualiza un almacén existente por su ID"
+)
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Almacén actualizado correctamente"),
+        @ApiResponse(responseCode = "404", description = "Almacén no encontrado"),
+        @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @PutMapping("/actualizarAlmacen/{idAlmacen}")
     public ResponseEntity<Almacen> actualizarAlmacen(@PathVariable Integer idAlmacen, @RequestBody Almacen almacen) {
         Almacen almacenExistente = almacenService.buscarPorId(idAlmacen);
@@ -94,6 +134,16 @@ public ResponseEntity<List<String>> listarMetodosDisponibles() {
         return ResponseEntity.ok(almacenActualizado);
     }
 
+
+    @Operation(
+    summary = "Eliminar almacén",
+    description = "Elimina un almacén por su ID"
+)
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Almacén eliminado correctamente"),
+        @ApiResponse(responseCode = "404", description = "Almacén no encontrado"),
+        @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @DeleteMapping ("/eliminarAlmacen/{idAlmacen}")
     public ResponseEntity<Void> eliminarAlmacen(@PathVariable Integer idAlmacen) {
         Almacen almacen = almacenService.buscarPorId(idAlmacen);
