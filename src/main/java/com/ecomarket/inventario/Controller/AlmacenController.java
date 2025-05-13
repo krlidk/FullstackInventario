@@ -89,7 +89,7 @@ public class AlmacenController {
         content = @Content(
             mediaType = "application/json",
             examples = @ExampleObject(
-                value = "{ \"idAlmacen\": 1, \"almacennombre\": \"Almacén Central\", \"direccion\": \"Calle Principal 123\" }"
+                value = "{ \"idAlmacen\": 1, \"almacennombre\": \"Almacén Central\", \"direccion\": \"Calle Principal 123\",\"productos\": [{ \"idProducto\": 1, \"productoNombre\": \"Bolsa reutilizable\", \"stock\": 50 }, { \"idProducto\": 2, \"productoNombre\": \"Cepillo de bambú\", \"stock\": 50 }] }"
             )
         )),
         @ApiResponse(responseCode = "404", description = "Almacén no encontrado"),
@@ -115,7 +115,7 @@ public class AlmacenController {
         content = @Content(
             mediaType = "application/json",
             examples = @ExampleObject(
-                value = "{ \"idAlmacen\": 1, \"almacennombre\": \"Almacén Central\", \"direccion\": \"Calle Principal 123\" }"
+                value = "{ \"idAlmacen\": 1, \"almacennombre\": \"Almacén Central\", \"direccion\": \"Calle Principal 123\",\"productos\": [{ \"idProducto\": 1, \"productoNombre\": \"Bolsa reutilizable\", \"stock\": 50 }, { \"idProducto\": 2, \"productoNombre\": \"Cepillo de bambú\", \"stock\": 50 }] }"
             )
         )
         ),
@@ -142,7 +142,7 @@ public class AlmacenController {
         content = @Content(
             mediaType = "application/json",
             examples = @ExampleObject(
-                value = "{ \"idAlmacen\": 1, \"almacennombre\": \"Almacén Central\", \"direccion\": \"Calle Principal 123\" }"
+                value = "{ \"idAlmacen\": 1, \"almacennombre\": \"Almacén Central\", \"direccion\": \"Calle Principal 123\",\"productos\": [{ \"idProducto\": 1, \"productoNombre\": \"Bolsa reutilizable\", \"stock\": 50 }, { \"idProducto\": 2, \"productoNombre\": \"Cepillo de bambú\", \"stock\": 50 }] }"
             )
         )),
         @ApiResponse(responseCode = "204", description = "No se encontraron almacenes"),

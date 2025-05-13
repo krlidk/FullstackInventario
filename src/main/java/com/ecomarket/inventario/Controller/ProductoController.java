@@ -55,8 +55,8 @@ public class ProductoController {
         description = "Cuerpo de la solicitud para agregar un producto",
         required = true,
         content = @Content(
-            mediaType = "application/json",
-            examples = {@ExampleObject(
+                mediaType = "application/json",
+                examples = {@ExampleObject(
                 name = "Ejemplo de producto agregando el nombre",
                 value = "{ \"idProducto\": 1, \"productoNombre\": \"Bolsa reutilizable\", \"stock\": 50 }"
             ),
@@ -81,24 +81,41 @@ public class ProductoController {
 
         // Verificar si el producto ya existe en el almacén
         Producto productoExistente = productoService.obtenerProductoEnAlmacen(idAlmacen, nuevoProducto.getIdProducto());
-            if (productoExistente != null) {
-                // Sumar el stock existente con el nuevo stock
-                int nuevoStock = productoExistente.getStock() + nuevoProducto.getStock();
-                productoExistente.setStock(nuevoStock);
-                Producto productoActualizado = productoService.actualizarProductoEnAlmacen(idAlmacen, productoExistente);
-                return ResponseEntity.ok(productoActualizado);
-            }
-
-            // Agregar el producto al almacén si no existe
-            Producto producto = productoService.agregarProducto(idAlmacen, nuevoProducto);
-            return ResponseEntity.ok(producto);
+        if (productoExistente != null) {
+            // Sumar el stock existente con el nuevo stock
+            int nuevoStock = productoExistente.getStock() + nuevoProducto.getStock();
+            productoExistente.setStock(nuevoStock);
+            Producto productoActualizado = productoService.actualizarProductoEnAlmacen(idAlmacen,productoExistente);
+            return ResponseEntity.ok(productoActualizado);
         }
 
-        @PutMapping("/actualizarStock/{idAlmacen}/{idProducto}")
-        public ResponseEntity<?> actualizarStockProductoEnAlmacen(
-                @PathVariable Integer idAlmacen,
-                @PathVariable Integer idProducto,
-                @RequestBody Producto productoActualizado) {
+        // Agregar el producto al almacén si no existe
+        Producto producto = productoService.agregarProducto(idAlmacen, nuevoProducto);
+        return ResponseEntity.ok(producto);
+    }
+
+    @Operation(
+    summary = "Actualizar un pproducto de un almacén.",
+    description = "Actualiza el stock de un producto existente en un almacén existente por su ID. Se requieren parámetros IDs de almacén y producto, así como el stock a actualizar."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", 
+        description = "Producto atualizado exitosamente",
+        content = @Content(
+            mediaType = "application/json",
+            examples = @ExampleObject(
+                value = "{ \"idAlmacen\": 1, \"productoNombre\": \"Bolsa reutilizable\", \"stock\": \"30\" }"
+            )
+        )),
+        @ApiResponse(responseCode = "400", description = "Error en la solicitud."),
+        @ApiResponse(responseCode = "404", description = "El producto no existe o el almacén no se encuentra"),
+        @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    @PutMapping("/actualizarStock/{idAlmacen}/{idProducto}")
+    public ResponseEntity<?> actualizarStockProductoEnAlmacen(
+        @PathVariable Integer idAlmacen,
+        @PathVariable Integer idProducto,
+        @RequestBody Producto productoActualizado) {
             try {
                 // Obtener el producto existente en el almacén
                 Producto productoExistente = productoService.obtenerProductoEnAlmacen(idAlmacen, idProducto);
@@ -117,11 +134,20 @@ public class ProductoController {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
         }
-    
-        @DeleteMapping("/eliminar/{idAlmacen}/{idProducto}")
+
+    @Operation(
+    summary = "ELiminar un producto de un almacén.",
+    description = "Elimina un producto existente de un almacén existente por su ID. Se requieren parámetros IDs de almacén y producto."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Producto eliminado exitosamente"),
+        @ApiResponse(responseCode = "404", description = "El producto no existe o el almacén no se encuentra"),
+        @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    @DeleteMapping("/eliminar/{idAlmacen}/{idProducto}")
     public ResponseEntity<String> eliminarProductoDeAlmacen(
-            @PathVariable Integer idAlmacen,
-            @PathVariable Integer idProducto) {
+        @PathVariable Integer idAlmacen,
+        @PathVariable Integer idProducto) {
         try {
             // Llamar al servicio para eliminar el producto del almacén
             productoService.eliminarProductoDeAlmacen(idAlmacen, idProducto);
