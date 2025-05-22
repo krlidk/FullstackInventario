@@ -41,14 +41,18 @@ public class AlmacenController {
         List<String> metodos = List.of(
             "Swagger UI: http://localhost:8080/swagger-ui.html",
             "JSON OpenAPI: http://localhost:8080/v3/api-docs",
+            "ALMACEN:",
             "GET /api/v1/almacen/obtenerAlmacenes - Obtener todos los almacenes",
             "GET /api/v1/almacen/buscarPorId - Buscar un almacén por ID",
             "GET /api/v1/almacen/buscarPorNombre - Buscar almacenes por nombre",
             "GET /api/v1/almacen/buscarPorDireccion - Buscar almacenes por dirección",
             "POST /api/v1/almacen/agregarAlmacen - Agregar un nuevo almacén",
-            "POST /api/v1/almacen/producto/agregarProducto - Agregar un producto a un almacén",
             "PUT /api/v1/almacen/actualizarAlmacen - Actualizar un almacén existente",
-            "DELETE /api/v1/almacen/eliminarAlmacen - Eliminar un almacén por ID"
+            "DELETE /api/v1/almacen/eliminarAlmacen - Eliminar un almacén por ID",
+            "PRODUCTO:",
+            "PUT: /api/v1/almacen/producto/actualizarStock/{idAlmacen}/{idProducto} - Actualizar stock de productos de un almacén",
+            "POST /api/v1/almacen/producto/agregarProducto - Agregar un producto a un almacén",
+            "DELETE: /api/v1/almacen/producto/eliminar/{idAlmacen}/{idProducto} - Eliminar un producto de un almacén en específico"
         );
     return ResponseEntity.ok(metodos);
 }
