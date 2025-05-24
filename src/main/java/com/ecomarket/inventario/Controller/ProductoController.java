@@ -115,6 +115,16 @@ public class ProductoController {
     public ResponseEntity<?> actualizarStockProductoEnAlmacen(
         @PathVariable Integer idAlmacen,
         @PathVariable Integer idProducto,
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Cuerpo de la solicitud para actualizar el stock de un producto",
+            required = true,
+            content = @Content(
+                mediaType = "application/json",
+                examples = @ExampleObject(
+                    value = "{ \"stock\": 100 }"
+                )
+            )
+        )
         @RequestBody Producto productoActualizado) {
             try {
                 // Obtener el producto existente en el almacén
